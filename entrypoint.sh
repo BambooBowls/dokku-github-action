@@ -22,7 +22,7 @@ git remote add deploy "$git_repo"
 DOKKU="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $DOKKU_USER@$DOKKU_HOST"
 
 echo "Removing previous app"
-$DOKKU apps:destroy $DOKKU_APP_NAME
+$DOKKU --force apps:destroy $DOKKU_APP_NAME
 echo "Creating app"
 $DOKKU apps:create $DOKKU_APP_NAME
 echo "Setting proxy ports"
