@@ -27,18 +27,18 @@ DOKKU="$SSH $DOKKU_USER@$DOKKU_HOST"
 
 echo "[###] Removing previous app"
 $DOKKU apps:destroy --force $DOKKU_APP_NAME
+
 echo "[###] Creating app"
-echo "[###] Re-enabling SSL ..."
-$DOKKU letsencrypt:enable $DOKKU_APP_NAME$DOKKU proxy:ports-set $DOKKU_APP_NAME $DOKKU_APP_PORT
+$DOKKU apps:create $DOKKU_APP_NAME
+
+echo "[###] Setting proxy ports"
+$DOKKU proxy:ports-set $DOKKU_APP_NAME $DOKKU_APP_PORT
+
 echo "[###] Listing proxy ports"
 $DOKKU proxy:ports $DOKKU_APP_NAME
 
-if [ "$DOKKU_ENABLE_SSL" == "yes" ]; then
-    echo "[###] Re-enabling SSL ..."
-    $DOKKU letsencrypt:enable $DOKKU_APP_NAME
-else
-    echo "[###] !!!! NOTE: SSL NOT ENABLED !!!!"
-fi
+echo "[###] Re-enabling SSL ..."
+$DOKKU letsencrypt:enable $DOKKU_APP_NAME
 
 # Prepare to push to Dokku git repository
 REMOTE_REF="$GITHUB_SHA:refs/heads/$DOKKU_REMOTE_BRANCH"
