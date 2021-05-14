@@ -30,6 +30,10 @@ inputs:
     description: "Set dokku app port"
     required: false
     default: "http:80:5000"
+  app-ssl:
+    description: "Auto enable SSL"
+    required: false
+    default: "yes"
 runs:
   using: "docker"
   image: "Dockerfile"
