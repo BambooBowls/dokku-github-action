@@ -37,9 +37,6 @@ $DOKKU proxy:ports-set $DOKKU_APP_NAME $DOKKU_APP_PORT
 echo "[###] Listing proxy ports"
 $DOKKU proxy:ports $DOKKU_APP_NAME
 
-echo "[###] Re-enabling SSL ..."
-$DOKKU letsencrypt:enable $DOKKU_APP_NAME
-
 # Prepare to push to Dokku git repository
 REMOTE_REF="$GITHUB_SHA:refs/heads/$DOKKU_REMOTE_BRANCH"
 
